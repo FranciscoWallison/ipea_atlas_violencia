@@ -158,7 +158,7 @@ selectElement.addEventListener("change", function () {
   const select_map_icon_removes = document.querySelectorAll(".select-map");
   // Obtém o valor selecionado
   const selectedValue = selectElement.value;
-  const infor_state = select_map_icon_removes[0].id.split("shape_")[1];
+
   let filter_homens = [];
   let filter_mulheres = [];
   if (select_map_icon_removes.length === 0) {
@@ -173,6 +173,7 @@ selectElement.addEventListener("change", function () {
         (estado?.período === undefined ? "" : estado.período) == selectedValue
     );
   } else {
+    const infor_state = select_map_icon_removes[0].id.split("shape_")[1];
     // iniciando dados de infomações do 200
     filter_homens = window.homicidios_de_homens.filter(
       (estado) =>
