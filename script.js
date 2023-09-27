@@ -14,6 +14,67 @@ for (let year = 2000; year <= 2019; year++) {
   selectElement.appendChild(optionElement);
 }
 
+function getNomeEstado(uf) {
+  switch (uf) {
+    case "AC":
+      return "Acre";
+    case "AL":
+      return "Alagoas";
+    case "AP":
+      return "Amapá";
+    case "AM":
+      return "Amazonas";
+    case "BA":
+      return "Bahia";
+    case "CE":
+      return "Ceará";
+    case "DF":
+      return "Distrito Federal";
+    case "ES":
+      return "Espírito Santo";
+    case "GO":
+      return "Goiás";
+    case "MA":
+      return "Maranhão";
+    case "MT":
+      return "Mato Grosso";
+    case "MS":
+      return "Mato Grosso do Sul";
+    case "MG":
+      return "Minas Gerais";
+    case "PA":
+      return "Pará";
+    case "PB":
+      return "Paraíba";
+    case "PR":
+      return "Paraná";
+    case "PE":
+      return "Pernambuco";
+    case "PI":
+      return "Piauí";
+    case "RJ":
+      return "Rio de Janeiro";
+    case "RN":
+      return "Rio Grande do Norte";
+    case "RS":
+      return "Rio Grande do Sul";
+    case "RO":
+      return "Rondônia";
+    case "RR":
+      return "Roraima";
+    case "SC":
+      return "Santa Catarina";
+    case "SP":
+      return "São Paulo";
+    case "SE":
+      return "Sergipe";
+    case "TO":
+      return "Tocantins";
+    default:
+      return "Estado não encontrado";
+  }
+}
+
 window.addEventListener("load", async () => {
   const file_homicidios_de_homens =
     "homicidios-de-homens-por-armas-de-fogo.csv";
@@ -97,6 +158,10 @@ selectElement.addEventListener("change", function () {
   // Obtém o valor selecionado
   const selectedValue = selectElement.value;
 
+  console.log("====================================");
+  console.log(selectedValue);
+  console.log("====================================");
+
   // iniciando dados de infomações do 200
   let filter_homens = window.homicidios_de_homens.filter(
     (estado) =>
@@ -150,6 +215,10 @@ estado_click = async (e) => {
 
   // INICIANDO
   const selectedValue = selectElement.value;
+
+  console.log("====================================");
+  console.log(selectedValue);
+  console.log("====================================");
 
   const select_map_removes = document.querySelectorAll(".select-map");
   select_map_removes.forEach((select_map_remove) => {
@@ -219,7 +288,7 @@ estado_click = async (e) => {
 
   grafico_homem.innerHTML = ` ${porcentagem_h.toFixed()}%`;
   grafico_mulher.innerHTML = ` ${porcentagem_m.toFixed()}%`;
-  grafico_ano.innerHTML = selectedValue;
+  grafico_ano.innerHTML = `${selectedValue} - ${getNomeEstado(infor_state.toLocaleUpperCase())}`;
 
   // Exibe o valor selecionado no console (ou faça o que desejar com ele)
   console.log("Valor selecionado:", selectedValue);
