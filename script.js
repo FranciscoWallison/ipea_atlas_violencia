@@ -155,23 +155,39 @@ window.addEventListener("load", async () => {
 
 // Adiciona um ouvinte de evento 'change' ao elemento <select>
 selectElement.addEventListener("change", function () {
+  const select_map_icon_removes = document.querySelectorAll(".select-map");
   // Obtém o valor selecionado
   const selectedValue = selectElement.value;
+  const infor_state = select_map_icon_removes[0].id.split("shape_")[1];
+  let filter_homens = [];
+  let filter_mulheres = [];
+  if (select_map_icon_removes.length === 0) {
+    // iniciando dados de infomações do 200
+    filter_homens = window.homicidios_de_homens.filter(
+      (estado) =>
+        (estado?.período === undefined ? "" : estado.período) == selectedValue
+    );
 
-  console.log("====================================");
-  console.log(selectedValue);
-  console.log("====================================");
+    filter_mulheres = window.homicidios_de_mulheres.filter(
+      (estado) =>
+        (estado?.período === undefined ? "" : estado.período) == selectedValue
+    );
+  } else {
+    // iniciando dados de infomações do 200
+    filter_homens = window.homicidios_de_homens.filter(
+      (estado) =>
+        (estado?.nome === undefined ? "" : estado?.nome).toLocaleLowerCase() ===
+          infor_state.toLocaleLowerCase() &&
+        (estado?.período === undefined ? "" : estado.período) == selectedValue
+    );
 
-  // iniciando dados de infomações do 200
-  let filter_homens = window.homicidios_de_homens.filter(
-    (estado) =>
-      (estado?.período === undefined ? "" : estado.período) == selectedValue
-  );
-
-  let filter_mulheres = window.homicidios_de_mulheres.filter(
-    (estado) =>
-      (estado?.período === undefined ? "" : estado.período) == selectedValue
-  );
+    filter_mulheres = window.homicidios_de_mulheres.filter(
+      (estado) =>
+        (estado?.nome === undefined ? "" : estado?.nome).toLocaleLowerCase() ===
+          infor_state.toLocaleLowerCase() &&
+        (estado?.período === undefined ? "" : estado.período) == selectedValue
+    );
+  }
 
   let conte_homens = 0;
 
@@ -201,7 +217,13 @@ selectElement.addEventListener("change", function () {
 
   grafico_homem.innerHTML = ` ${porcentagem_h.toFixed()}%`;
   grafico_mulher.innerHTML = ` ${porcentagem_m.toFixed()}%`;
-  grafico_ano.innerHTML = selectedValue;
+  if (select_map_icon_removes.length === 0) {
+    grafico_ano.innerHTML = selectedValue;
+  } else {
+    grafico_ano.innerHTML = `${selectedValue} - ${getNomeEstado(
+      infor_state.toLocaleUpperCase()
+    )}`;
+  }
 
   // Exibe o valor selecionado no console (ou faça o que desejar com ele)
   console.log("Valor selecionado:", selectedValue);
@@ -216,18 +238,14 @@ estado_click = async (e) => {
   // INICIANDO
   const selectedValue = selectElement.value;
 
-  console.log("====================================");
-  console.log(selectedValue);
-  console.log("====================================");
-
   const select_map_removes = document.querySelectorAll(".select-map");
   select_map_removes.forEach((select_map_remove) => {
     select_map_remove.classList.remove("select-map");
   });
 
-  const select_map_icon_removes = document.querySelectorAll(".select-map-icon");
+  const select_map_icon_removes = document.querySelectorAll(".select-map");
   select_map_icon_removes.forEach((select_map_icon_remove) => {
-    select_map_icon_remove.classList.remove("select-map-icon");
+    select_map_icon_remove.classList.remove("select-map");
   });
 
   const infor_state = e.id.split("state_")[1];
@@ -242,7 +260,7 @@ estado_click = async (e) => {
   const element_select_map = document.getElementById(select_map);
 
   if (element_select_map === null) {
-    element_state_icon_text.classList.add("select-map-icon");
+    element_state_icon_text.classList.add("select-map");
   } else {
     element_select_map.classList.add("select-map");
   }
@@ -288,7 +306,9 @@ estado_click = async (e) => {
 
   grafico_homem.innerHTML = ` ${porcentagem_h.toFixed()}%`;
   grafico_mulher.innerHTML = ` ${porcentagem_m.toFixed()}%`;
-  grafico_ano.innerHTML = `${selectedValue} - ${getNomeEstado(infor_state.toLocaleUpperCase())}`;
+  grafico_ano.innerHTML = `${selectedValue} - ${getNomeEstado(
+    infor_state.toLocaleUpperCase()
+  )}`;
 
   // Exibe o valor selecionado no console (ou faça o que desejar com ele)
   console.log("Valor selecionado:", selectedValue);
