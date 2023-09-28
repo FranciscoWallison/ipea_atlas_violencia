@@ -67,7 +67,7 @@ const getNomeEstado = (uf) => {
 };
 
 const estado_click = (element) => {
-  const e = element.originalTarget;
+  const e = element.currentTarget;
 
   document.getElementById("login").classList.add("d-block");
   document.getElementById("login").classList.remove("d-none");
