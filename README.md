@@ -5,7 +5,6 @@
 
 [fonte](https://www.ipea.gov.br/atlasviolencia/filtros-series/1/homicidios)
 
-
 _____________________________________________________________________________
 Erros :
 
