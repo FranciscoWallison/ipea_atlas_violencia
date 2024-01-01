@@ -1,4 +1,4 @@
-# Números e taxas de homicídios no Brasil por estados 
+# Números de homicídios no Brasil por estados 
 
 
 ### [Homicídios de Homens e mulheres  por Armas de Fogo	](https://franciscowallison.github.io/ipea_atlas_violencia/)
